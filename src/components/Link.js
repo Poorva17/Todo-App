@@ -1,22 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import TodoAppContext from '../context/TodoAppContext'
 
-const Link = ({ active, children, onClick }) => (
-    <button
-        onClick={onClick}
-        disabled={active}
-        style={{
-            marginLeft: '4px'
-        }}
-    >
-        {children}
-    </button>
+const Link = (props) => (
+    <TodoAppContext.Consumer>
+        {
+            (context) => {
+                console.log('-------> Link')
+                return <button
+                    onClick={() => context.setVisibilityFilter(props.filter)}
+                    disabled={props.filter === context.visibilityFilter}
+                    style={{
+                        marginLeft: '4px'
+                    }}
+                >
+                    {props.children}
+                </button>}
+        }
+
+    </TodoAppContext.Consumer>
 )
 
 Link.propTypes = {
-    active: PropTypes.bool.isRequired,
+    filter: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
-    onClick: PropTypes.func.isRequired
 }
 
 export default Link

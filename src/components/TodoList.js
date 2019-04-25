@@ -1,24 +1,35 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Todo from './Todo'
+import TodoAppContext from '../context/TodoAppContext'
+import {VisibilityFilters} from "../constants/visibilityFilters";
 
-const TodoList = ({ todos, toggleTodo }) => (
-    <ul>
-        {todos.map(todo => (
-            <Todo key={todo.id} {...todo} onClick={() => toggleTodo(todo.id)} />
-        ))}
-    </ul>
+const TodoList = () => (
+    <TodoAppContext.Consumer>
+        {(context) => {
+            console.log('-------> TodoList')
+            const todoToShow = getVisibleTodos(context.todos, context.visibilityFilter)
+            return <ul>
+                {todoToShow.map(todo => (
+                    <Todo key={todo.id} {...todo} onClick={() => context.toggleTodo(todo.id)}/>
+                ))}
+            </ul>
+        }
+        }
+    </TodoAppContext.Consumer>
+
+
 )
 
-TodoList.propTypes = {
-    todos: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            completed: PropTypes.bool.isRequired,
-            text: PropTypes.string.isRequired
-        }).isRequired
-    ).isRequired,
-    toggleTodo: PropTypes.func.isRequired
+const getVisibleTodos = (todos, filter) => {
+    console.log(`getVisibleTodos ${filter}`)
+    switch (filter) {
+        case VisibilityFilters.SHOW_COMPLETED:
+            return todos.filter(t => t.completed)
+        case VisibilityFilters.SHOW_ACTIVE:
+            return todos.filter(t => !t.completed)
+        default:
+            return todos
+    }
 }
 
 export default TodoList
