@@ -1,33 +1,28 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import TodoAppContext from "../context/TodoAppContext";
 
-class AddTodo extends React.Component {
-    static contextType = TodoAppContext
+const AddTodo = () => {
+    const context = useContext(TodoAppContext)
+    const [input, setInput] = useState('')
 
-    constructor(props) {
-        super(props)
-        this.state = {input: ''}
+    const updateInput = (e) => {
+        setInput( e.target.value)
     }
 
-    render() {
-        console.log('-------> AddTodo')
-        return <form
+    return (
+        <form
             onSubmit={
                 (e) => {
                     e.preventDefault()
-                    this.context.addTodo(this.state.input)
+                    context.addTodo(input)
                 }
             }>
             <input
-                onChange={this.updateInput}>
+                onChange={updateInput}>
             </input>
             <button type="submit">Add Todo</button>
         </form>
-    }
-
-    updateInput = (e) => {
-        this.setState({input: e.target.value})
-    }
-
+    )
 }
+
 export default AddTodo

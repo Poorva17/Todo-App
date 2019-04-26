@@ -1,25 +1,24 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
 import TodoAppContext from '../context/TodoAppContext'
 
-const Link = (props) => (
-    <TodoAppContext.Consumer>
-        {
-            (context) => {
-                console.log('-------> Link')
-                return <button
-                    onClick={() => context.setVisibilityFilter(props.filter)}
-                    disabled={props.filter === context.visibilityFilter}
-                    style={{
-                        marginLeft: '4px'
-                    }}
-                >
-                    {props.children}
-                </button>}
-        }
 
-    </TodoAppContext.Consumer>
-)
+const Link = (props) => {
+    const context = useContext(TodoAppContext)
+
+    return (
+        <button
+            onClick={() => context.setVisibilityFilter(props.filter)}
+            disabled={props.filter === context.visibilityFilter}
+            style={{
+                marginLeft: '4px'
+            }}
+        >
+            {props.children}
+        </button>
+    )
+
+}
 
 Link.propTypes = {
     filter: PropTypes.string.isRequired,

@@ -1,53 +1,45 @@
-import React from 'react'
+import React, {useState} from 'react'
 import TodoAppContext from '../context/TodoAppContext'
 import {VisibilityFilters} from "../constants/visibilityFilters";
 
-class TodoContextProvider extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            todos: [],
-            visibilityFilter: VisibilityFilters.SHOW_ALL
-        }
-    }
+const TodoContextProvider = (props) => {
+    const [todos, setTodos] = useState([])
+    const [visibilityFilter, setVisibilityFilter] = useState(VisibilityFilters.SHOW_ALL)
 
-    addTodo = (text) => {
-        this.setState({
-            todos: [...this.state.todos, {
-                id: this.state.todos.length,
+    const addTodo = (text) => {
+        setTodos([
+            ...todos,
+            {
+                id: todos.length,
                 text: text,
                 completed: false
-            }]
-        })
+            }])
     };
 
-    toggleTodo = (id) => {
-        this.setState({
-            todos: this.state.todos.map(todo =>
-                todo.id === id ? {...todo, completed: !todo.completed} : todo
-            )
-        })
+    const toggleTodo = (id) => {
+        setTodos(todos.map(todo =>
+            todo.id === id ? {...todo, completed: !todo.completed} : todo
+        ))
     };
 
-    setVisibilityFilter = (filter) => {
-        this.setState({
-            visibilityFilter: filter
-        })
+    const setFilter = (filter) => {
+        setVisibilityFilter(filter)
     }
 
-    render() {
-        return <TodoAppContext.Provider value={
+    return (
+        <TodoAppContext.Provider value={
             {
-                todos: this.state.todos,
-                visibilityFilter: this.state.visibilityFilter,
-                addTodo: this.addTodo,
-                toggleTodo: this.toggleTodo,
-                setVisibilityFilter: this.setVisibilityFilter
+                todos,
+                visibilityFilter,
+                addTodo,
+                toggleTodo,
+                setVisibilityFilter: setFilter
             }
         }>
-            {this.props.children}
+            {props.children}
         </TodoAppContext.Provider>
-    }
+    )
+
 }
 
 export default TodoContextProvider
