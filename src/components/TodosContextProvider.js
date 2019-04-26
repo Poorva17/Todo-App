@@ -1,10 +1,9 @@
 import React, {useState} from 'react'
-import TodoAppContext from '../context/TodoAppContext'
-import {VisibilityFilters} from "../constants/visibilityFilters";
+import TodosContext from '../context/TodosContext'
 
-const TodoContextProvider = (props) => {
+const TodosContextProvider = (props) => {
     const [todos, setTodos] = useState([])
-    const [visibilityFilter, setVisibilityFilter] = useState(VisibilityFilters.SHOW_ALL)
+
 
     const addTodo = (text) => {
         setTodos([
@@ -22,26 +21,20 @@ const TodoContextProvider = (props) => {
         ))
     };
 
-    const setFilter = (filter) => {
-        setVisibilityFilter(filter)
-    }
-
     return (
-        <TodoAppContext.Provider value={
+        <TodosContext.Provider value={
             {
                 todos,
-                visibilityFilter,
                 addTodo,
                 toggleTodo,
-                setVisibilityFilter: setFilter
             }
         }>
             {props.children}
-        </TodoAppContext.Provider>
+        </TodosContext.Provider>
     )
 
 }
 
-export default TodoContextProvider
+export default TodosContextProvider
 
 

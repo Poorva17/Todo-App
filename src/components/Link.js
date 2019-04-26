@@ -1,10 +1,10 @@
 import React, {useContext} from 'react'
 import PropTypes from 'prop-types'
-import TodoAppContext from '../context/TodoAppContext'
+import VisibilityFilterContext from "../context/VisibilityFilterContext";
 
 
 const Link = (props) => {
-    const context = useContext(TodoAppContext)
+    const context = useContext(VisibilityFilterContext)
 
     return (
         <button

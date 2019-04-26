@@ -1,15 +1,17 @@
 import React, {useContext} from 'react'
 import Todo from './Todo'
-import TodoAppContext from '../context/TodoAppContext'
+import TodosContext from '../context/TodosContext'
 import {VisibilityFilters} from "../constants/visibilityFilters";
+import VisibilityFilterContext from "../context/VisibilityFilterContext";
 
 const TodoList = () => {
-    const context = useContext(TodoAppContext)
+    const todosContext = useContext(TodosContext)
+    const visibilityFilterContext = useContext(VisibilityFilterContext)
 
     return <ul>
         {
-            getVisibleTodos(context.todos, context.visibilityFilter).map(todo => (
-                <Todo key={todo.id} {...todo} onClick={() => context.toggleTodo(todo.id)}/>
+            getVisibleTodos(todosContext.todos, visibilityFilterContext.visibilityFilter).map(todo => (
+                <Todo key={todo.id} {...todo} onClick={() => todosContext.toggleTodo(todo.id)}/>
             ))
         }
     </ul>

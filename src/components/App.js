@@ -2,15 +2,18 @@ import React from 'react'
 import Footer from './Footer'
 import AddTodo from '../components/AddTodo'
 import VisibleTodoList from '../components/TodoList'
-import TodoContextProvider from './TodoContextProvider'
+import TodosContextProvider from './TodosContextProvider'
+import VisibilityFilterContextProvider from "./VisibilityFilterContextProvider";
 
 const App = () => (
     <div>
-        <TodoContextProvider>
-            <AddTodo/>
-            <VisibleTodoList/>
+        <VisibilityFilterContextProvider>
+            <TodosContextProvider>
+                <AddTodo/>
+                <VisibleTodoList/>
+            </TodosContextProvider>
             <Footer/>
-        </TodoContextProvider>
+        </VisibilityFilterContextProvider>
     </div>
 )
 

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import TodoAppContext from "../context/TodoAppContext";
+import TodosContext from "../context/TodosContext";
 
 const AddTodo = () => {
-    const context = useContext(TodoAppContext)
+    const context = useContext(TodosContext)
     const [input, setInput] = useState('')
 
     const updateInput = (e) => {
