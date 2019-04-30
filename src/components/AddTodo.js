@@ -7,6 +7,7 @@ class AddTodo extends React.Component {
     }
 
     render() {
+        console.log('----------> AddTodo')
         return <form
             onSubmit={
                 (e) => {
